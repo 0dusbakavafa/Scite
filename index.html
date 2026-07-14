@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HeadTrick MunnizX | Inteligência Artificial em Sensibilidade</title>
+    <!-- PHOSPHOR ICONS INTEGRATION -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --bg-dark: #020105;
+            --bg-card: #0a0514;
+            --bg-input: #120924;
+            --primary: #b30000;
+            --primary-glow: rgba(179, 0, 0, 0.6);
+            --accent: #ff1a1a;
+            --accent-glow: rgba(255, 26, 26, 0.5);
+            --pix-color: #32bcad;
+            --pix-glow: rgba(50, 188, 173, 0.4);
+            --text-main: #fcfaff;
+            --text-muted: #8e82a3;
+            --border-color: #240c3e;
+            --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --success: #00ff66;
+            
+            /* NOVAS CORES ADICIONADAS PARA SUPORTE PREMIUM */
+            --warning: #ffaa00;
+            --info: #00f2fe;
+            --info-glow: rgba(0, 242, 254, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-family);
+            scroll-behavior: smooth;
+        }
+
+        
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+        input, textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+            font-size: 16px !important; /* Evita zoom automático ao clicar em inputs no iOS */
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% -10%, rgba(179, 0, 0, 0.35) 0%, transparent 60%),
+                radial-gradient(circle at 100% 40%, rgba(255, 26, 26, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 0% 80%, rgba(179, 0, 0, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.05) 0%, transparent 40%);
+            background-attachment: fixed;
+            line-height: 1.6;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* CANVAS BACKGROUND STYLE */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i {
+            font-size: 24px;
+            color: #ff0000;
+            filter: drop-shadow(0 0 6px var(--accent-glow));
+        }
+
+        /* Fully purple glowing styling applied to HeadTrick MunnizX */
+        .logo span.brand-glow {
+            color: #ff1a1a;
+            font-weight: 800;
+            text-shadow: 
+                0 0 8px #b30000,
+                0 0 20px rgba(255, 26, 26, 0.8),
+                0 0 40px rgba(179, 0, 0, 0.6);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px; 
+            margin: 0 auto;
+            padding: 30px 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        /* Premium Elegant Dark Glassmorphism Badge */
+        .hero .badge {
+            background: rgba(4, 2, 8, 0.65);
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            color: #9c9a9e; /* Chamativo Cinza */
+            padding: 12px 20px;
+            border-radius: 16px;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 26px;
+            letter-spacing: 0.2px;
+            box-shadow: 
+                0 8px 32px 0 rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            max-width: 100%;
+            text-align: left;
+            line-height: 1.4;
+            font-style: italic; /* Em itálico chamativo */
+        }
+
+        .hero .badge i {
+            font-size: 18px;
+            color: #ff1a1a; /* Somente Roxo */
+            filter: drop-shadow(0 0 5px rgba(255, 26, 26, 0.6));
+            flex-shrink: 0;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 18px;
+            letter-spacing: -0.8px;
+            background: linear-gradient(135deg, #ffffff 40%, #a291bd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 26, 26, 0.3);
+        }
+
+        /* Target class to keep scenario purple specifically inside h1 */
+        .hero h1 span.purple-text {
+            color: var(--accent) !important;
+            background: none !important;
+            -webkit-text-fill-color: var(--accent) !important;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 32px;
+        }
+
+        /* HIGH-END TRUST COUNTER COUNTER BADGES */
+        .trust-bar {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .trust-item {
+            background: rgba(18, 9, 36, 0.4);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .trust-item h4 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(255, 26, 26, 0.2);
+        }
+
+        .trust-item p {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* LIVE TIMER WIDGET */
+        .countdown-box {
+            background: rgba(255, 0, 128, 0.06);
+            border: 1px solid rgba(255, 0, 128, 0.3);
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffb6d7;
+        }
+        .countdown-box span {
+            color: #d40000;
+            text-shadow: 0 0 8px rgba(255, 0, 123, 0.5);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .card {
+            background: linear-gradient(160deg, rgba(10, 5, 20, 0.82) 0%, rgba(5, 2, 10, 0.97) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 26px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 50px rgba(179, 0, 0, 0.15);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 22px;
+            color: #ff0000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .card-title i {
+            font-size: 20px;
+            color: var(--accent);
+            filter: drop-shadow(0 0 6px var(--accent-glow));
+        }
+
+        /* Features List */
+        .feature-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-icon-box {
+            background: rgba(179, 0, 0, 0.15);
+            border: 1px solid rgba(179, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(179, 0, 0, 0.1);
+        }
+
+        .feature-icon-box i {
+            font-size: 18px;
+        }
+
+        .feature-item:hover .feature-icon-box {
+            color: #fff;
+            border-color: var(--accent);
+            background: rgba(255, 26, 26, 0.25);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .feature-text h4 {
+            font-size: 15px;
+            color: #fff;
+            margin-bottom: 5px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .feature-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* BONUS SPECIFICATION BLOCKS */
+        .bonus-box {
+            background: rgba(0, 255, 102, 0.04);
+            border: 1px dashed var(--success);
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 15px;
+        }
+        .bonus-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--success);
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        /* COMPATIBILITY TABLE MATRIX */
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 12.5px;
+        }
+        .matrix-table th {
+            text-align: left;
+            padding: 10px;
+            color: var(--text-muted);
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .matrix-table td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(36, 12, 62, 0.5);
+            color: #fff;
+        }
+        .matrix-table tr:last-child td {
+            border-bottom: none;
+        }
+        .status-badge {
+            color: var(--success);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* TIMELINE STEP BY STEP FLOW */
+        .step-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .step-flow::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            bottom: 5px;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .step-node {
+            position: relative;
+        }
+
+        .step-node::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: -20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+            border: 2px solid var(--bg-dark);
+            transform: translateX(-3px);
+        }
+
+        .step-node h5 {
+            font-size: 14px;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .step-node p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ULTRA MODERN FEEDBACKS LIST */
+        .feedbacks-container {
+            max-height: 480px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .feedbacks-container::-webkit-scrollbar {
+            width: 5px;
+        }
+        .feedbacks-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .feedbacks-container::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 10px;
+        }
+        .feedbacks-container::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        .review {
+            background: linear-gradient(135deg, rgba(15, 5, 28, 0.6) 0%, rgba(5, 2, 10, 0.8) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 14px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .review:last-child {
+            margin-bottom: 0;
+        }
+
+        .review:hover {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(25, 10, 45, 0.8) 0%, rgba(10, 3, 20, 0.9) 100%);
+            transform: translateX(3px);
+            box-shadow: 0 5px 15px rgba(255, 26, 26, 0.1);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .review-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .review-user .avatar {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 900;
+            box-shadow: 0 0 10px rgba(255, 26, 26, 0.4);
+        }
+
+        .review-stars {
+            color: #ff1a1a;
+            text-shadow: 0 0 8px rgba(255, 0, 255, 0.6);
+            display: flex;
+            gap: 2px;
+            font-size: 11px;
+        }
+
+        .review-text {
+            font-size: 13px;
+            font-style: italic;
+            color: #e2daf0;
+            line-height: 1.5;
+        }
+
+        /* FAQ ACCORDION SECTION */
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 0;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-trigger {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-trigger i {
+            color: var(--accent);
+            font-size: 16px;
+            transition: transform 0.3s;
+        }
+        .faq-content {
+            margin-top: 8px;
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            display: none;
+        }
+
+        /* SUBMIT FEEDBACK SYSTEM AT THE BOTTOM */
+        .feedback-form-box {
+            background: linear-gradient(160deg, rgba(15, 5, 28, 0.8) 0%, rgba(0, 0, 0, 1) 100%);
+            border: 2px dashed var(--border-color);
+            border-radius: 24px;
+            padding: 26px;
+            margin-top: 28px;
+            box-shadow: 0 15px 40px rgba(179, 0, 0, 0.1);
+            transition: border-color 0.3s;
+        }
+
+        .feedback-form-box:hover {
+            border-color: var(--accent);
+        }
+
+        .feedback-form-box h5 {
+            font-size: 16px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+        }
+
+        .input-style {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-style:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(255, 26, 26, 0.3);
+            background: #170b2e;
+        }
+
+        textarea.input-style {
+            resize: none;
+            height: 75px;
+        }
+
+        .rating-select {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .rating-select span {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .star-container {
+            display: flex;
+            gap: 4px;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            color: #240c3e;
+            font-size: 22px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .star-btn.active, .star-btn:hover {
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-glow);
+            transform: scale(1.15);
+        }
+
+        .btn-submit-feedback {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            color: #fff;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 26, 26, 0.3);
+        }
+
+        .btn-submit-feedback:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 26, 26, 0.6);
+            filter: brightness(1.1);
+        }
+
+        /* PRODUCT DISPLAY BOX */
+        .product-box {
+            background: linear-gradient(165deg, #0f051c 0%, #000000 100%);
+            border: 2px solid var(--accent);
+            border-radius: 28px;
+            padding: 30px 24px;
+            margin-bottom: 28px;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(255, 26, 26, 0.25);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            color: #fff;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 6px 18px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            white-space: nowrap;
+        }
+
+        .product-header {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+
+        .product-title-text {
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        .product-subtitle {
+            font-size: 12px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .pricing-wrapper {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .price-old {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .price-current {
+            font-size: 48px;
+            font-weight: 950;
+            color: #ff0000;
+            margin: 2px 0;
+            text-shadow: 0 0 20px var(--accent-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: -1px;
+            animation: price-pulse-glow 1.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes price-pulse-glow {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 15px rgba(212, 0, 0, 0.6), 0 0 30px rgba(255, 40, 40, 0.4);
+            }
+            100% {
+                transform: scale(1.06);
+                text-shadow: 0 0 25px rgba(212, 0, 0, 1), 0 0 50px rgba(255, 40, 40, 0.8), 0 0 70px rgba(255, 80, 80, 0.6);
+            }
+        }
+
+        .price-current span {
+            font-size: 20px;
+            font-weight: 700;
+            margin-right: 4px;
+            color: #ff0000;
+        }
+
+        .price-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .price-note i {
+            color: var(--accent);
+            font-size: 14px;
+        }
+
+        /* WHATSAPP/PAYMENT GATEWAY SECTION */
+        .payment-methods-gateways {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 22px;
+            background: rgba(18, 9, 36, 0.6);
+            padding: 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(37, 211, 102, 0.2);
+            box-shadow: inset 0 0 10px rgba(37, 211, 102, 0.05);
+        }
+
+        .gateway-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        .gateway-item i {
+            font-size: 22px;
+            color: #25d366;
+            filter: drop-shadow(0 0 6px rgba(37, 211, 102, 0.4));
+            flex-shrink: 0;
+        }
+
+        .btn-buy {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            color: #fff;
+            padding: 20px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            box-shadow: 0 8px 30px var(--accent-glow);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(255, 26, 26, 0.7);
+            filter: brightness(1.1);
+        }
+
+        .btn-buy:active {
+            transform: translateY(-1px);
+        }
+
+        .guarantee {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(0,0,0,0.3);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .guarantee i {
+            color: var(--accent);
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .guarantee-text h5 {
+            font-size: 13px;
+            color: #fff;
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+
+        .guarantee-text p {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* LIVE PURCHASE TOAST / SALES FEED OVERLAY CONTAINER */
+        .live-sales-pop {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(10, 5, 24, 0.95);
+            border-left: 4px solid var(--success);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 0 12px 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 50;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            font-size: 12px;
+            transform: translateX(-150%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 280px;
+        }
+        .live-sales-pop.visible {
+            transform: translateX(0);
+        }
+        .live-sales-pop i {
+            color: var(--success);
+            font-size: 16px;
+        }
+
+        /* FLOATING NOTIFICATION TOAST DESIGN */
+        .toast-notification {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgba(20, 8, 40, 0.95) 0%, rgba(5, 2, 12, 0.98) 100%);
+            border: 1px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(255, 26, 26, 0.4), inset 0 0 15px rgba(179, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9999;
+            transition: top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: calc(100% - 32px);
+            max-width: 400px;
+        }
+
+        .toast-notification.show {
+            top: 20px;
+        }
+
+        .toast-icon {
+            background: rgba(255, 26, 26, 0.2);
+            color: var(--accent);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border: 1px solid rgba(255, 26, 26, 0.4);
+            flex-shrink: 0;
+        }
+
+        .toast-content h6 {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 1px;
+        }
+
+        .toast-content p {
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* NOVOS COMPONENTES ULTRA MODERNOS E DETALHADOS ADICIONADOS */
+        .telemetry-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .telemetry-item {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(179, 0, 0, 0.15);
+            padding: 10px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .telemetry-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .telemetry-value {
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--success);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px var(--success);
+            animation: live-blink 1s infinite alternate;
+        }
+
+        @keyframes live-blink {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .interactive-preview-box {
+            background: rgba(4, 2, 10, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .preview-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--info);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .slider-wrapper {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .slider-wrapper label {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .custom-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            background: #170b2e;
+            height: 6px;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .preview-result-text {
+            font-size: 12px;
+            color: #fff;
+            background: rgba(179, 0, 0, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+            font-weight: 600;
+            border: 1px solid rgba(179, 0, 0, 0.2);
+        }
+
+        .comparison-container {
+            display: flex;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+
+        .comparison-side {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .side-before {
+            background: rgba(255, 0, 128, 0.03);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .side-after {
+            background: rgba(0, 255, 102, 0.03);
+        }
+
+        .side-title {
+            font-weight: 800;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- INTERCONNECTED POINTS INTERACTIVE PURPLE CANVAS -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- FLOATING TOAST NOTIFICATION -->
+    <div id="toast" class="toast-notification">
+        <div class="toast-icon"><i class="ph-bold ph-check"></i></div>
+        <div class="toast-content">
+            <h6 id="toast-title">Avaliação Publicada!</h6>
+            <p id="toast-desc">Obrigado por fortalecer a nossa comunidade.</p>
+        </div>
+    </div>
+
+    <!-- DYNAMIC LIVE POPUP WIDGET -->
+    <div id="live-sales" class="live-sales-pop">
+        <i class="ph-fill ph-check-circle"></i>
+        <div>
+            <strong id="live-sales-name" style="color: var(--accent);">+1 Usuário</strong> acabou de adquirir o melhor headtrick.
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <!-- HERO PRINCIPAL -->
+        <div class="hero">
+            <!-- Premium Elegant Dark Glassmorphism Box with Purple TikTok Icon and Grey Italic Text -->
+            <div class="badge">
+                <i class="ph-bold ph-tiktok-logo"></i>
+                <span>Abra essa área fora do TikTok, para prosseguir corretamente!</span>
+            </div>
+            
+            <h1>O que você está esperando para adquirir o melhor <span class="purple-text">headtrick</span> do <span class="purple-text">cenário</span>?</h1>
+            <p>Aqui você encontra, o melhor headtrick! Não perca essa oportunidade, e desfrute ao máximo da melhor experiência.</p>
+            
+            <a href="#comprar" class="btn-buy">
+                Aqui:
+                <i class="ph-bold ph-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- TRUST BAR WITH STATISTICS -->
+        <div class="trust-bar">
+            <div class="trust-item">
+                <i class="ph-bold ph-users" style="font-size: 20px; color: var(--accent); margin-bottom: 4px; display: inline-block; filter: drop-shadow(0 0 4px var(--accent-glow));"></i>
+                <h4>+47.2k</h4>
+                <p>Clientes</p>
+            </div>
+            <div class="trust-item">
+                <i class="ph-bold ph-chats" style="font-size: 20px; color: var(--accent); margin-bottom: 4px; display: inline-block; filter: drop-shadow(0 0 4px var(--accent-glow));"></i>
+                <h4>99.4%</h4>
+                <p>Feedbacks</p>
+            </div>
+        </div>
+
+        <!-- ESPECIFICAÇÕES TÉCNICAS E ARQUITETURA -->
+        <div class="card">
+            <div class="card-title">
+                <i class="ph-bold ph-cpu"></i>
+                Vantagens do melhor headtrick:
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="ph-bold ph-screencast"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>Acertos praticamente automáticos na cabeça</h4>
+                    <p>Todos os disparos, serão direcionados á cabeça do oponente com extrema precisão e taxa de acerto.</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="ph-bold ph-fingerprint"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>Sua tela não é mais um problema</h4>
+                    <p>Não importa a forma que sua tela responda, aja ou corresponda! O resultado esperado, de todos os disparos na cabeça, se mantém com uma precisão enorme.</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon-box">
+                    <i class="ph-bold ph-sliders"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>Controle de acertos</h4>
+                    <p>Você pode perfeitamente decidir, se vai acertar todos os disparos na cabeça, ou se até mesmo você quer decidir dar apenas disparos no peito, ou até mesmo os dois juntos.</p>
+                </div>
+            </div>
+
+            <!-- COMPARATIVO ANTES E DEPOIS ADICIONADO -->
+            <div class="comparison-container">
+                <div class="comparison-side side-before">
+                    <div class="side-title" style="color: #ff4444;">Sem o Headtrick:</div>
+                    <p style="font-size: 11px; color: var(--text-muted);">Péssimo! Mira tremendo, disparos passando da cabeça e MUITO estresse.</p>
+                </div>
+                <div class="comparison-side side-after">
+                    <div class="side-title" style="color: var(--success);">Com o Headtrick:</div>
+                    <p style="font-size: 11px; color: var(--text-muted);">Acertos precisos na cabeça do oponente, adeus tremedeiras constantes, precisão e taxas de acertos absurdas.</p>
+                </div>
+            </div>
+
+            <!-- EXCLUSIVE BONUS MODULE CONTAINER -->
+            <div class="bonus-box">
+                <div class="bonus-header">
+                    <i class="ph-bold ph-gift"></i> Bônus:
+                </div>
+                <p style="font-size:12px; color:#cbfce2;">Grupo exclusivo para usuários do headtrick com novidades, atualizações e conteúdos em primeira mão!</p>
+            </div>
+        </div>
+
+        <!-- NEW COMPATIBILITY MATRIX SECTION -->
+        <div class="card">
+            <div class="card-title">
+                <i class="ph-bold ph-device-mobile"></i>
+                Compatibilidade:
+            </div>
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>Sistema</th>
+                        <th>Status</th>
+                        <th>HeadTrick</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Android (Todas Versões)</td>
+                        <td><div class="status-badge"><i class="ph-bold ph-check-circle"></i> 100%</div></td>
+                        <td>Otimizado</td>
+                    </tr>
+                    <tr>
+                        <td>iOS (iPhones/iPads)</td>
+                        <td><div class="status-badge"><i class="ph-bold ph-check-circle"></i> 100%</div></td>
+                        <td>Calibrado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TIMELINE ACTIVATION PROCESS SECTION -->
+        <div class="card">
+            <div class="card-title">
+                <i class="ph-bold ph-activity"></i>
+                Etapas para obter:
+            </div>
+            <div class="step-flow">
+                <div class="step-node">
+                    <h5>1. Confirmação do pagamento</h5>
+                    <p>O processamento ocorre de forma simples! Você pode facilmente tocar em, “ADQUIRIR” e após você ser redirecionado ao atendimento, basta ser atendido.”.</p>
+                </div>
+                <div class="step-node">
+                    <h5>2. Recebimento do produto</h5>
+                    <p>Você recebe o headtrick diretamente no seu WhatsApp, sem erros alguns.</p>
+                </div>
+                <div class="step-node">
+                    <h5>3. Ajustes inclusos ao aparelho</h5>
+                    <p>O HeadTrick MunnizX analisa seu painel de toque e aplica os algoritmos sob medida de forma definitiva.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO DE FEEDBACKS DE ALTA PERFORMANCE -->
+        <div class="card">
+            <div class="card-title">
+                <i class="ph-bold ph-chats-teardrop"></i>
+                Feedbacks:
+            </div>
+            
+            <div class="feedbacks-container" id="feedbacks-list">
+                <div class="review">
+                    <div class="review-header">
+                        <div class="review-user"><div class="avatar">G</div>@Luizin77</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <p class="review-text">"Meu parceiro, nunca mais eu uso proxy na minha vida akskskskkss headtrick bom dp carai tnc moço"</p>
+                </div>
+
+                <div class="review">
+                    <div class="review-header">
+                        <div class="review-user"><div class="avatar">M</div>@kakaship</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <p class="review-text">"O melhor headtrick q eu usei prc, e o melhor é os analistas tentando me dar wo e não achando motivo KAKAKAKSKSKWJ"</p>
+                </div>
+
+                <div class="review">
+                    <div class="review-header">
+                        <div class="review-user"><div class="avatar">R</div>@miniMarechal99982</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <p class="review-text">"Bglh bom da porra, to jogando rank e mal consigo disfarçar"</p>
+                </div>
+
+                <div class="review">
+                    <div class="review-header">
+                        <div class="review-user"><div class="avatar">A</div>@leandrinXitump</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <p class="review-text">"Mano eu to dando so vermelho, mas eu to com uma duvida, eu consigo usar em mais de um celular? Quero usar no celular do meu tio mano, eu consigo???"</p>
+                </div>
+
+                <div class="review">
+                    <div class="review-header">
+                        <div class="review-user"><div class="avatar">T</div>@biaFazinsP</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <p class="review-text">"bglh melhorou ate meu gelo tnc kakakakajshshhs tmj cara nmrl, vou comprar com vc agr"</p>
+                </div>
+
+                </div>
+        </div>
+
+        <!-- FAQ / ACCORDION COMPLETE PREMIUM FEATURE -->
+        <div class="card">
+            <div class="card-title">
+                <i class="ph-bold ph-question"></i>
+                Duvidas:
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-trigger" onclick="toggleFaq(this)">O app gera algum risco de ban? <i class="ph-bold ph-plus"></i></button>
+                <div class="faq-content">0 risco de banimento! O sistema conta com o maior nível de segurança e bypass da atualidade.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-trigger" onclick="toggleFaq(this)">Preciso reconfigurar toda vez que jogar? <i class="ph-bold ph-plus"></i></button>
+                <div class="faq-content">Não, todas as alterações são definitivas, até que você remova ou desative o headtrick.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-trigger" onclick="toggleFaq(this)">Funciona em qualquer dispositivo? <i class="ph-bold ph-plus"></i></button>
+                <div class="faq-content">Sim, independente de qual seja seu aparelho, o sistema conta com suporte total á qualquer dispositivo ou versão, seja você Android ou iOS.</div>
+            </div>
+        </div>
+
+        <!-- CAIXA DE PRODUTO -->
+        <div class="product-box" id="comprar">
+            <div class="product-badge">71% de desconto!</div>
+            
+            <div class="product-header">
+                <h3 class="product-title-text">HeadTrick MunnizX</h3>
+                <p class="product-subtitle">Faça a sua melhor escolha agora!</p>
+            </div>
+            
+            <div class="pricing-wrapper">
+                <div class="price-old">De R$ 69,90</div>
+                <div class="price-current"><span>R$</span> 19,99</div>
+                <div class="price-note">
+                    <i class="ph-bold ph-chat-centered-dots"></i>
+                    Acesso imediato enviado no seu WhatsApp!
+                </div>
+            </div>
+
+            <!-- WHATSAPP GATEWAY SECTION WITH NEW TEXT AND ICON -->
+            <div class="payment-methods-gateways">
+                <div class="gateway-item" title="Compra segura via WhatsApp">
+                    <i class="ph-bold ph-whatsapp-logo"></i>
+                    <span style="color: #9c9a9e; font-style: italic;">Realize sua compra de forma 100% segura via WhatsApp!</span>
+                </div>
+            </div>
+
+            <!-- LINK ATIVAR LICENÇA SUPREMA -->
+            <a href="https://wa.me/message/7V56RKP63Q5NJ1" target="_blank" onclick="event.preventDefault(); window.open('https://wa.me/message/7V56RKP63Q5NJ1', '_blank');" class="btn-buy">
+                <i class="ph-bold ph-shopping-cart-simple"></i>
+                Adquirir
+            </a>
+
+            <div class="guarantee">
+                <i class="ph-bold ph-shield-check"></i>
+                <div class="guarantee-text">
+                    <h5>Garantia vitalícia!</h5>
+                    <p>Sua garantia aqui é valorizada.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SYSTEM TO SEND FEEDBACKS POSITIONED AT THE BOTTOM -->
+        <div class="feedback-form-box">
+            <h5>Deixe seu feedback aqui:</h5>
+            <div class="input-group">
+                <input type="text" id="fb-user" class="input-style" placeholder="Seu Usuário (Ex: @SeuNome)">
+            </div>
+            <div class="input-group">
+                <textarea id="fb-text" class="input-style" placeholder="Escreva aqui sobre os resultados do seu headtrick..."></textarea>
+            </div>
+            <div class="rating-select">
+                <span>Escolher Estrelas:</span>
+                <div class="star-container">
+                    <button class="star-btn active" onclick="setFormRating(1)">★</button>
+                    <button class="star-btn active" onclick="setFormRating(2)">★</button>
+                    <button class="star-btn active" onclick="setFormRating(3)">★</button>
+                    <button class="star-btn active" onclick="setFormRating(4)">★</button>
+                    <button class="star-btn active" onclick="setFormRating(5)">★</button>
+                </div>
+            </div>
+            <button class="btn-submit-feedback" onclick="submitNewFeedback()">Publicar</button>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 HeadTrick MunnizX - ENGENHARIA DE SOFTWARE MX.<br>
+        Esta plataforma independente não possui afiliação com a Garena Inc.
+    </footer>
+
+    <script>
+        // BACKGROUND CANVA DE PONTOS INTERLIGADOS ROXO
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const particleCount = 45;
+        const maxDistance = 110;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.radius = Math.random() * 2 + 1.5;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 26, 26, 0.7)';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < maxDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(179, 0, 0, ${1 - (dist / maxDistance) * 0.85})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+
+        let selectedRating = 5;
+
+        // Dynamic recent buyer simulation widget
+        const buyerNames = ["Marcos P.", "Felipe K.", "Lucas_FF", "Rodrigo S.", "Ana Clara", "Vini_Capa", "Darlan M.", "Bruno Alvis", "SensiMaster"];
+        const liveSalesWidget = document.getElementById('live-sales');
+        const liveSalesName = document.getElementById('live-sales-name');
+
+        function triggerLivePopup() {
+            if(!liveSalesWidget) return;
+            // Mantendo a escrita roxa fixa conforme pedido
+            liveSalesName.innerHTML = "+1 Usuário";
+            liveSalesWidget.classList.add('visible');
+            
+            setTimeout(() => {
+                liveSalesWidget.classList.remove('visible');
+            }, 4500);
+        }
+        
+        // Loop simulation every 14 seconds
+        setInterval(triggerLivePopup, 14000);
+        setTimeout(triggerLivePopup, 2000); // initial trigger
+
+        function setFormRating(rating) {
+            selectedRating = rating;
+            const stars = document.querySelectorAll('.star-btn');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        function showNotification(title, message) {
+            const toast = document.getElementById('toast');
+            if(!toast) return;
+            const icon = toast.querySelector('.toast-icon i');
+            
+            if (title.includes("Aviso")) {
+                icon.className = "ph-bold ph-warning";
+                toast.style.borderColor = "#ffaa00";
+            } else {
+                icon.className = "ph-bold ph-check";
+                toast.style.borderColor = "var(--accent)";
+            }
+            
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-desc').innerText = message;
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        function toggleFaq(btn) {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('i');
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                icon.className = "ph-bold ph-plus";
+            } else {
+                content.style.display = "block";
+                icon.className = "ph-bold ph-minus";
+            }
+        }
+
+        function submitNewFeedback() {
+            const userInput = document.getElementById('fb-user');
+            const textInput = document.getElementById('fb-text');
+            
+            if(!userInput || !textInput) return;
+            
+            let user = userInput.value.trim();
+            let text = textInput.value.trim();
+            
+            if(!user) user = "@Anonimo";
+            if(!text) {
+                showNotification("Aviso do Sistema", "Por favor, digite seu comentário antes de enviar!");
+                return;
+            }
+            
+            if(!user.startsWith('@')) user = '@' + user;
+            
+            let starsStr = "";
+            for(let i=0; i<5; i++) {
+                starsStr += (i < selectedRating) ? "★" : "☆";
+            }
+            
+            const firstLetter = user.charAt(1).toUpperCase() || "X";
+            
+            const reviewDiv = document.createElement('div');
+            reviewDiv.className = 'review';
+            reviewDiv.style.borderColor = 'var(--accent)';
+            reviewDiv.style.boxShadow = '0 0 15px rgba(255, 26, 26, 0.2)';
+            reviewDiv.innerHTML = `
+                <div class="review-header">
+                    <div class="review-user"><div class="avatar">${firstLetter}</div>${user}</div>
+                    <div class="review-stars">${starsStr}</div>
+                </div>
+                <p class="review-text">"${text}"</p>
+            `;
+            
+            const list = document.getElementById('feedbacks-list');
+            if(list) {
+                list.insertBefore(reviewDiv, list.firstChild);
+                list.closest('.card').scrollIntoView({ behavior: 'smooth' });
+                list.scrollTop = 0;
+            }
+            
+            textInput.value = "";
+            userInput.value = "";
+            setFormRating(5);
+            
+            showNotification("Avaliação Publicada!", "Seu feedback de " + selectedRating + " estrelas já está ao vivo.");
+        }
+    </script>
+</body>
+</html>
